@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "2.0.0",
-  "author": "Charles De Lafontaine",
+  "author": "Mehdi Benouhoud et Arnaud Grandisson",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
