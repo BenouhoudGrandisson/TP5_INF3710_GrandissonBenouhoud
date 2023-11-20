@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:15.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    networks:
+      - backend
+
+  server:
+    build:
+      context: .
+      target: server
+    volumes:
+      - ./server:/app/server
+      - ./common:/app/common
+    environment:
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_HOST: database
+    ports:
+      - 3000:3000
+    networks:
+      - backend
+    depends_on:
+      - database
+
+  client:
+    build:
+      context: .
+      target: client
+    volumes:
+      - ./client:/app/client
+      - ./common:/app/common
+    ports:
+      - 4200:4200
+
+networks:
+  backend:
+
+volumes:
+  postgres_data:

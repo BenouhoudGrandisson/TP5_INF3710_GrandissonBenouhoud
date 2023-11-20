@@ -1,6 +1,29 @@
-# INF3710
-Application vierge pour le TP4 du cours d'[INF3710 Fichiers et bases de données ](https://www.polymtl.ca/programmes/cours/fichiers-et-bases-de-donnees) à Polytechnique Montréal.
+# INF3710 -- GestoMédic
+Mehdi Benouhoud
 
+Arnaud Grandisson
+
+## Utilisation
+
+Vous pouvez lancer le serveur et le client puis la BD Postgres en procédant de la [manière conventionelle](#démarrer-lapplication) ou en utilisant la stack Docker fourni, auquel cas vous devrez installer [Docker](https://www.docker.com/).
+
+```bash
+docker-compose up -d
+```
+
+Éteindre le projet avec la commande
+```bash
+docker-compose down
+```
+
+Utilisez la commande suivante pour mettre à jour les images Docker si le code a changé
+
+```bash
+docker-compose up -d --build
+```
+
+# Utilisation en mode développement
+Fourni par les chargés du cours.
 ## Important
 
 Les commandes débutant par `npm` ou `yarn` doivent être exécutées dans le dossier `client` ou le dossier `server`.
