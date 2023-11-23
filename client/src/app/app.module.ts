@@ -11,13 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddMedecinComponent } from './pages/add-medecin/add-medecin.component';
 import { UpdateMedecinComponent } from './pages/update-medecin/update-medecin.component';
 import { DeleteMedecinComponent } from './pages/delete-medecin/delete-medecin.component';
+import { MedecinCardComponent } from "./components/medecin-card/medecin-card.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     AddMedecinComponent,
     UpdateMedecinComponent,
-    DeleteMedecinComponent
+    DeleteMedecinComponent,
+    MedecinCardComponent
   ],
   imports: [
     CommonModule,
