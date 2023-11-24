@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Doctor } from '../../../../../common/tables/doctor'
 
 @Component({
   selector: 'app-medecin-card',

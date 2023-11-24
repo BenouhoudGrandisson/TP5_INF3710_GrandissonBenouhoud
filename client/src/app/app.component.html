@@ -10,12 +10,11 @@
     </div>
   </nav>
 
-  <app-medecin-card></app-medecin-card>
   <div class="home" *ngIf="route == ''">
     <p>
       GestoMédic
     </p>
-    <button mat-raised-button color="primary" class="btn" routerLink="/ROUTEUR_À_IMPLÉMENTER">Parcourir les médecins<mat-icon>arrow_right</mat-icon></button>
+    <button mat-raised-button color="primary" class="btn" routerLink="/main">Parcourir les médecins<mat-icon>arrow_right</mat-icon></button>
   </div>
   <router-outlet></router-outlet>
 </div>
