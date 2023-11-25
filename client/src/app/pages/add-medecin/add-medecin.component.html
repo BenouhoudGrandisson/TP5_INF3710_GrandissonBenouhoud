@@ -1,1 +1,52 @@
-<p>add-medecin works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+            <h4 class="card-header mb-0">Ajouter un médecin</h4>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <label for="firstname">Prénom</label>
+                            <input type="text" class="form-control" placeholder="Prénom" id="firstname">
+                        </div>
+                        <div class="col">
+                            <label for="lastname">Nom de famille</label>
+                            <input type="text" class="form-control" placeholder="Nom de famille" id="lastname">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="specialty">Spécialité</label>
+                            <select name="specialty" id="specialty" class="form-control">
+                                <option>Choisir...</option>
+                                <option *ngFor="let specialty of specialties">{{ specialty }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="experience">Années d'expérience</label>
+                            <input type="number" name="experience" id="experience" min="0">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="service">Service</label>
+                            <select name="service" id="service" class="form-control">
+                                <option>Choisir...</option>
+                                <option *ngFor="let service of services">{{ service }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary">Ajouter</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-medecin.component.css']
 })
 export class AddMedecinComponent implements OnInit {
+  public readonly specialties: string[] = [
+    "Mewoikjew",
+    "weiouwhge",
+    "weoikjweolj"
+  ]
+
+  public readonly services: string[] = [
+    "Hôpital de Lachine",
+    "Hôpital Fleury",
+    "Institut de cardiologie de Montréal"
+  ]
 
   constructor() { }
 
