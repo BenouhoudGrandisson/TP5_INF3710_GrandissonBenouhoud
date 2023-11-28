@@ -4,44 +4,49 @@
         <div class="card">
             <h4 class="card-header mb-0">Ajouter un médecin</h4>
             <div class="card-body">
-                <form>
+                <form [formGroup]="addMedecinForm" (submit)="submitForm()">
                     <div class="row">
                         <div class="col">
                             <label for="firstname">Prénom</label>
-                            <input type="text" class="form-control" placeholder="Prénom" id="firstname">
+                            <input formControlName="firstname" type="text" class="form-control" placeholder="Prénom" id="firstname" [ngClass]="{'is-invalid': firstname?.invalid && firstname?.touched}">
+                            <div class="invalid-feedback">Veuillez inscrire un prénom</div>
                         </div>
                         <div class="col">
                             <label for="lastname">Nom de famille</label>
-                            <input type="text" class="form-control" placeholder="Nom de famille" id="lastname">
+                            <input formControlName="lastname" type="text" class="form-control" placeholder="Nom de famille" id="lastname" [ngClass]="{'is-invalid': lastname?.invalid && lastname?.touched}">
+                            <div class="invalid-feedback">Veuillez inscrire un nom de famille</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label for="specialty">Spécialité</label>
-                            <select name="specialty" id="specialty" class="form-control">
+                            <select formControlName="specialty" name="specialty" id="specialty" class="form-control" [ngClass]="{'is-invalid': specialty?.invalid && specialty?.touched}">
                                 <option>Choisir...</option>
                                 <option *ngFor="let specialty of specialties">{{ specialty }}</option>
+                                <div class="invalid-feedback">Veuillez inscrire une spécialité</div>
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label for="experience">Années d'expérience</label>
-                            <input type="number" name="experience" id="experience" min="0">
+                            <input formControlName="experience" type="number" name="experience" id="experience" min="0" value="0" [ngClass]="{'is-invalid': experience?.invalid && experience?.touched}">
+                            <div class="invalid-feedback">Veuillez inscrire un nombre d'années d'expérience</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label for="service">Service</label>
-                            <select name="service" id="service" class="form-control">
+                            <select formControlName="service" name="service" id="service" class="form-control" [ngClass]="{'is-invalid': service?.invalid && service?.touched}">
                                 <option>Choisir...</option>
                                 <option *ngFor="let service of services">{{ service }}</option>
                             </select>
+                            <div class="invalid-feedback">Veuillez choisir un service</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary">Ajouter</button>
+                            <button [disabled]="addMedecinForm.invalid" type="submit" class="btn btn-primary">Ajouter</button>
                         </div>
                     </div>
                     </form>
