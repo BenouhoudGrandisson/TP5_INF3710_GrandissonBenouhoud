@@ -21,14 +21,6 @@ export class AddMedecinComponent implements OnInit {
     "Institut de cardiologie de Montréal"
   ]
 
-  public areValids = {
-    firstname: true,
-    lastname: true,
-    specialty: true,
-    experience: true,
-    service: true
-  }
-
   public submitForm() {
     console.log(this.addMedecinForm.value)
   }
