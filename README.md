@@ -21,6 +21,17 @@ Utilisez la commande suivante pour mettre à jour les images Docker si le code a
 ```bash
 docker-compose up -d --build
 ```
+ou directement
+```bash
+docker-compose build
+```
+
+On pourra donc accéder au client (l'application web) sur http://localhost:4200 et au serveur API sur http://localhost:3000
+
+Il est possible d'exécuter des commandes SQL en effectuant la commande suivante
+```bash
+docker-compose exec database psql -U medecin_specialiste -d hopital_bd
+```
 
 # Utilisation en mode développement
 Fourni par les chargés du cours.

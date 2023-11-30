@@ -14,7 +14,8 @@ export class Server {
 
   public init(): void {
     this.application.app.set("port", this.appPort);
-
+    const path = require("path");
+    require("dotenv").config({ path: path.resolve(__dirname, "../../.env")});
     this.server = http.createServer(this.application.app);
 
     this.server.listen(this.appPort);
