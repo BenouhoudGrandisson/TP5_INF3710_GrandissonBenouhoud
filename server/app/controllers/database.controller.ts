@@ -31,9 +31,13 @@ export class DatabaseController {
       }
     });
 
-    router.post("/medecins", (req, rep) => {
-      // const medecin = await this.databaseService.addMedecin(req.body)
-      rep.status(501).json(req.body);
+    router.post("/medecins", async (req, rep) => {
+      try {
+        const newMedecin = await this.databaseService.addMedecin(req.body);
+        rep.status(201).json(newMedecin.rows[0]);
+      } catch (e) {
+        rep.status(500).json({ error: e });
+      }
     });
 
     router.get("/medecins", async (req, rep) => {
@@ -59,16 +63,34 @@ export class DatabaseController {
       }
     });
 
-    router.delete("/medecins/:id", (req, rep) => {
+    router.delete("/medecins/:id", async (req, rep) => {
       const id = req.params.id;
-      // this.databaseService.deleteMedecin(id);
-      rep.status(501).json({ error: 'Devs didnt code that one yet sorry', id: id});
+      try {
+        const medecin = await this.databaseService.getMedecin(id);
+        if (medecin.rowCount === 0) {
+          rep.status(404).json({ error: "Medecin not found" });
+          return;
+        }
+        this.databaseService.deleteMedecin(id);
+        rep.status(204).json({ message: "Medecin deleted" });
+      } catch(e) {
+        rep.status(500).json({ error: e });
+      }
     });
 
-    router.patch("/medecins/:id", (req, rep) => {
+    router.patch("/medecins/:id", async (req, rep) => {
       const id = req.params.id;
-      // this.databaseService.updateMedecin(id, req.body);
-      rep.status(501).json({ body: req.body, id: id});
+      try {
+        const medecin = await this.databaseService.getMedecin(id);
+        if (medecin.rowCount === 0) {
+          rep.status(404).json({ error: "Medecin not found" });
+          return;
+        }
+        this.databaseService.updateMedecin(id, req.body);
+        rep.status(200).json({ message: "Medecin updated", medecin: req.body });
+      } catch(e) {
+        rep.status(500).json({ error: e });
+      }
     });
     return router;
   }
