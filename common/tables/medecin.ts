@@ -1,11 +1,12 @@
-export class Doctor {
+export class Medecin {
+    id: number;
     firstname: string;
     lastname: string;
     specialty: string;
     experience: number;
     service: string;
 
-    constructor(firstname: string, lastname: string, specialty: string, experience: number, service: string) {
+    constructor(id: number, firstname: string, lastname: string, specialty: string, experience: number, service: string) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.specialty = specialty;

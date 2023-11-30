@@ -1,0 +1,12 @@
+div#medecin-id-row {
+    margin-top: 20px;
+}
+
+#medecin-card {
+    padding-bottom: 20px;
+}
+
+div#medecin-id-row * {
+    margin: 0 5px;
+    align-items: baseline;
+}

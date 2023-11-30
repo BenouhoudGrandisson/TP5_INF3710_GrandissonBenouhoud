@@ -1,6 +1,9 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
+        <div *ngIf="showSuccessMessage" class="alert alert-success">
+            Le médecin a été modifié avec succès!
+        </div>
         <div class="card">
             <h4 class="card-header mb-0">Modifier un médecin</h4>
             <div class="card-body">
@@ -8,13 +11,13 @@
                     <div class="row">
                         <div class="col">
                             <label for="medecinId">ID du médecin</label>
-                            <input type="number" name="medecinId" id="medecinId">
+                            <input formControlName="id" type="number" name="medecinId" id="medecinId">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <label for="firstname">Prénom</label>
-                            <input [value]="medecins[medecinId?.value].firstname" formControlName="firstname" type="text" class="form-control" placeholder="Prénom" id="firstname" [ngClass]="{'is-invalid': firstname?.invalid && firstname?.touched}">
+                            <input formControlName="firstname" type="text" class="form-control" placeholder="Prénom" id="firstname" [ngClass]="{'is-invalid': firstname?.invalid && firstname?.touched}">
                             <div class="invalid-feedback">Veuillez inscrire un prénom</div>
                         </div>
                         <div class="col">

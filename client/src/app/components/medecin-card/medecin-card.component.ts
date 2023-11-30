@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Doctor } from '../../../../../common/tables/doctor'
+import { Medecin } from '../../../../../common/tables/medecin'
 
 @Component({
   selector: 'app-medecin-card',
@@ -8,7 +8,7 @@ import { Doctor } from '../../../../../common/tables/doctor'
 })
 export class MedecinCardComponent implements OnInit {
 
-  @Input() doctor: Doctor;
+  @Input() medecin: Medecin;
 
   constructor() { }
 

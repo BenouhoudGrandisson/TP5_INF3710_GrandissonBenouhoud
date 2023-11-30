@@ -1,1 +1,18 @@
-<p>delete-medecin works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card" [formGroup]="deleteMedecinFormGroup">
+                <h4 class="card-header mb-0">
+                    Supprimer un médecin
+                </h4>
+                <div id="medecin-id-row" class="row">
+                    <div id="label-input" class="col d-flex justify-content-center">
+                        <label for="id">ID du médecin</label>
+                        <input formControlName="id" type="number" name="id" id="id" min="0">
+                    </div>
+                </div>
+                <app-medecin-card formControlName="medecin" id="medecin-card" [medecin]="medecin"></app-medecin-card>
+            </div>
+        </div>
+    </div>
+</div>

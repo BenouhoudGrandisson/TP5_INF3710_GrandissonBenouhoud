@@ -1,7 +1,7 @@
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Doctor } from "../../../common/tables/doctor";
+import { Medecin } from "../../../common/tables/medecin";
 
 @Component({
   selector: "app-root",
@@ -22,6 +22,6 @@ export class AppComponent implements OnInit {
     }
 
     public readonly title: string = "INF3710 TP4";
-    public readonly doctorTest: Doctor = new Doctor("Arnaud", "Grandisson", "La teub", 69, "Hopital General de MTL");
+    public readonly doctorTest: Medecin = new Medecin(0, "Arnaud", "Grandisson", "La teub", 69, "Hopital General de MTL");
     public ngOnInit(): void { }
 }

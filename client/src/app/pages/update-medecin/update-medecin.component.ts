@@ -8,22 +8,38 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UpdateMedecinComponent implements OnInit {
 
+  public showSuccessMessage: boolean;
+
   updateMedecinForm: FormGroup;
 
   public readonly specialties: string[] = [
     "Mewoikjew",
     "weiouwhge",
-    "weoikjweolj"
+    "weoikjweolj",
+    "Analyse éditoriale et politique",
+    "Commentateur politique",
+    "Ministre de l'Économie et de l'Innovation"
   ]
 
   public readonly services: string[] = [
     "Hôpital de Lachine",
     "Hôpital Fleury",
-    "Institut de cardiologie de Montréal"
+    "Institut de cardiologie de Montréal",
+    "C A Vous",
+    "Radio-Canada",
+    "Gouvernement du Québec"
   ]
 
   public submitForm() {
-    console.log(this.updateMedecinForm.value)
+    // replace this with a call to the API evantually
+    const medecinId = this.updateMedecinForm.get('id')?.value;
+    const medecinIndex = this.medecins.findIndex(medecin => medecin.id === medecinId);
+    this.medecins[medecinIndex] = this.updateMedecinForm.value;
+    this.showSuccessMessage = true;
+  }
+
+  get id() {
+    return this.updateMedecinForm.get('id');
   }
 
   get firstname() {
@@ -52,28 +68,28 @@ export class UpdateMedecinComponent implements OnInit {
 
   public readonly medecins = [
     {
-      medecinId: 1,
-      firstname: "Jean",
-      lastname: "Tremblay",
-      specialty: "Mewoikjew",
+      id: 1,
+      firstname: "Patrick",
+      lastname: "Cohen",
+      specialty: "Analyse éditoriale et politique",
       experience: 5,
-      service: "Hôpital de Lachine"
+      service: "C A Vous"
     },
     {
-      medecinId: 2,
-      firstname: "Jean",
-      lastname: "Tremblay",
-      specialty: "weiouwhge",
+      id: 2,
+      firstname: "Patrice",
+      lastname: "Roy",
+      specialty: "Commentateur politique",
       experience: 5,
-      service: "Hôpital de Lachine"
+      service: "Radio-Canada"
     },
     {
-      medecinId: 3,
-      firstname: "Jean",
-      lastname: "Tremblay",
-      specialty: "weoikjweolj",
+      id: 3,
+      firstname: "Pierre",
+      lastname: "Fitzgibbon",
+      specialty: "Ministre de l'Économie et de l'Innovation",
       experience: 5,
-      service: "Hôpital de Lachine"
+      service: "Gouvernement du Québec"
     }
   ]
 
@@ -82,8 +98,9 @@ export class UpdateMedecinComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.showSuccessMessage = false;
     this.updateMedecinForm = this.fb.group({
-      medecinId: ['', [
+      id: ['', [
         Validators.required,
         Validators.minLength(1)
       ]],
@@ -107,7 +124,19 @@ export class UpdateMedecinComponent implements OnInit {
         Validators.required,
         Validators.pattern('^(?!Choisir\\.\\.\\.$).*$')
       ]]
-    })
+    });
+
+    this.updateMedecinForm.get('id')?.valueChanges.subscribe((selectedMedecinId) => {
+      const selectedMedecin = this.medecins.find(medecin => medecin.id === selectedMedecinId);
+      if (selectedMedecin) {
+        this.showSuccessMessage = false;
+        this.updateMedecinForm.get('firstname')?.setValue(selectedMedecin.firstname);
+        this.updateMedecinForm.get('lastname')?.setValue(selectedMedecin.lastname);
+        this.updateMedecinForm.get('specialty')?.setValue(selectedMedecin.specialty);
+        this.updateMedecinForm.get('experience')?.setValue(selectedMedecin.experience);
+        this.updateMedecinForm.get('service')?.setValue(selectedMedecin.service);
+      }
+    });
   }
 
 }
