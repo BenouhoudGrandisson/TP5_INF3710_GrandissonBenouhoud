@@ -33,7 +33,8 @@ import { ShowMedecinsComponent } from './components/show-medecins/show-medecins.
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    AppMaterialModule
+    AppMaterialModule,
+    HttpClientModule
   ],
   providers: [CommunicationService],
   entryComponents: [],

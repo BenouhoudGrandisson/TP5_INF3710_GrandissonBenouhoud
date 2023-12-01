@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Medecin } from '../../../../../common/tables/medecin';
+import { Constants } from 'src/app/config/constants';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-show-medecins',
@@ -8,22 +10,17 @@ import { Medecin } from '../../../../../common/tables/medecin';
 })
 export class ShowMedecinsComponent implements OnInit {
 
-  public readonly medecins: Medecin[] = [
-    new Medecin(0, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(1, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(2, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(3, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(4, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(5, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(6, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(7, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(8, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj"),
-    new Medecin(9, "wewe", "wewewe", "wewjewioejweioj", 23, "woliehj")
-  ]
+  private readonly API_URL = Constants.API_URL;
 
-  constructor() { }
+  public medecins: Medecin[];
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    // get all medecins from database
+    this.http.get(this.API_URL + '/medecins').subscribe((medecins: Medecin[]) => {
+      this.medecins = medecins;
+    });
   }
 
 }
