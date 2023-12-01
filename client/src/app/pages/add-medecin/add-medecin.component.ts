@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Constants } from 'src/app/config/constants';
 
 @Component({
   selector: 'app-add-medecin',
@@ -7,22 +9,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-medecin.component.css']
 })
 export class AddMedecinComponent implements OnInit {
+  public success: boolean = false;
+  private readonly API_URL = Constants.API_URL;
 
   addMedecinForm: FormGroup;
-  public readonly specialties: string[] = [
-    "Mewoikjew",
-    "weiouwhge",
-    "weoikjweolj"
-  ]
 
-  public readonly services: string[] = [
-    "Hôpital de Lachine",
-    "Hôpital Fleury",
-    "Institut de cardiologie de Montréal"
-  ]
+  public specialties: string[];
+  public services: string[];
 
   public submitForm() {
     console.log(this.addMedecinForm.value)
+    this.http.post(this.API_URL + '/medecins', this.addMedecinForm.value).subscribe((res) => {
+      console.log(res)
+    });
+    this.success = true;
   }
 
   get firstname() {
@@ -46,7 +46,7 @@ export class AddMedecinComponent implements OnInit {
   }
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.addMedecinForm = this.fb.group({
@@ -72,6 +72,13 @@ export class AddMedecinComponent implements OnInit {
       ]]
     });
 
+    this.http.get(this.API_URL + '/services').subscribe((services: string[]) => {
+      this.services = services;
+    });
+
+    this.http.get(this.API_URL + '/specialties').subscribe((specialties: string[]) => {
+      this.specialties = specialties;
+    });
   }
 
 }

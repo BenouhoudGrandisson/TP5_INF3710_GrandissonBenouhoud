@@ -17,7 +17,6 @@ export class ShowMedecinsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    // get all medecins from database
     this.http.get(this.API_URL + '/medecins').subscribe((medecins: Medecin[]) => {
       this.medecins = medecins;
     });
