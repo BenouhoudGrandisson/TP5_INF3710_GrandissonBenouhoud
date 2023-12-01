@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Medecin } from '../../../../../common/tables/medecin';
+import { HttpClient } from '@angular/common/http';
+import { Constants } from 'src/app/config/constants';
 
 @Component({
   selector: 'app-update-medecin',
@@ -7,34 +10,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./update-medecin.component.css']
 })
 export class UpdateMedecinComponent implements OnInit {
+  private readonly API_URL = Constants.API_URL;
 
   public showSuccessMessage: boolean;
 
   updateMedecinForm: FormGroup;
-
-  public readonly specialties: string[] = [
-    "Mewoikjew",
-    "weiouwhge",
-    "weoikjweolj",
-    "Analyse éditoriale et politique",
-    "Commentateur politique",
-    "Ministre de l'Économie et de l'Innovation"
-  ]
-
-  public readonly services: string[] = [
-    "Hôpital de Lachine",
-    "Hôpital Fleury",
-    "Institut de cardiologie de Montréal",
-    "C A Vous",
-    "Radio-Canada",
-    "Gouvernement du Québec"
-  ]
+  
+  public medecins: Medecin[];
+  public specialties: string[];
+  public services: string[];
 
   public submitForm() {
-    // replace this with a call to the API evantually
-    const medecinId = this.updateMedecinForm.get('id')?.value;
-    const medecinIndex = this.medecins.findIndex(medecin => medecin.id === medecinId);
-    this.medecins[medecinIndex] = this.updateMedecinForm.value;
+    this.http.patch(this.API_URL + '/medecins/' + this.updateMedecinForm.get('id')?.value, this.updateMedecinForm.value).subscribe((res) => {
+      console.log(res)
+    });
     this.showSuccessMessage = true;
   }
 
@@ -66,36 +55,10 @@ export class UpdateMedecinComponent implements OnInit {
     return this.updateMedecinForm.get('medecinId');
   }
 
-  public readonly medecins = [
-    {
-      id: 1,
-      firstname: "Patrick",
-      lastname: "Cohen",
-      specialty: "Analyse éditoriale et politique",
-      experience: 5,
-      service: "C A Vous"
-    },
-    {
-      id: 2,
-      firstname: "Patrice",
-      lastname: "Roy",
-      specialty: "Commentateur politique",
-      experience: 5,
-      service: "Radio-Canada"
-    },
-    {
-      id: 3,
-      firstname: "Pierre",
-      lastname: "Fitzgibbon",
-      specialty: "Ministre de l'Économie et de l'Innovation",
-      experience: 5,
-      service: "Gouvernement du Québec"
-    }
-  ]
 
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.showSuccessMessage = false;
@@ -136,6 +99,18 @@ export class UpdateMedecinComponent implements OnInit {
         this.updateMedecinForm.get('experience')?.setValue(selectedMedecin.experience);
         this.updateMedecinForm.get('service')?.setValue(selectedMedecin.service);
       }
+    });
+
+    this.http.get(this.API_URL + '/services').subscribe((services: string[]) => {
+      this.services = services;
+    });
+
+    this.http.get(this.API_URL + '/specialties').subscribe((specialties: string[]) => {
+      this.specialties = specialties;
+    });
+
+    this.http.get(this.API_URL + '/medecins').subscribe((medecins: Medecin[]) => {
+      this.medecins = medecins;
     });
   }
 
