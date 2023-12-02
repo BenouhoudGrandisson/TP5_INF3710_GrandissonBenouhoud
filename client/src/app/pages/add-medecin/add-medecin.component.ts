@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatabaseService } from '..\TP5_INF3710_GrandissonBenouhoud\server\app\services\database.service.ts';
 
 @Component({
   selector: 'app-add-medecin',
@@ -9,17 +10,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddMedecinComponent implements OnInit {
 
   addMedecinForm: FormGroup;
-  public readonly specialties: string[] = [
-    "Mewoikjew",
-    "weiouwhge",
-    "weoikjweolj"
-  ]
+  private databaseService: DatabaseService
 
-  public readonly services: string[] = [
-    "Hôpital de Lachine",
-    "Hôpital Fleury",
-    "Institut de cardiologie de Montréal"
-  ]
+  public specialties: string[]
+
+  public services: string[]
 
   public submitForm() {
     console.log(this.addMedecinForm.value)
@@ -49,6 +44,8 @@ export class AddMedecinComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.services = this.databaseService.getAllServices();
+    this.specialties = this.databaseService.getAllSpecialities();
     this.addMedecinForm = this.fb.group({
       firstname: ['Jean-Michel', [
         Validators.required,
