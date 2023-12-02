@@ -1,0 +1,11 @@
+div.card-body {
+    padding: 30px;
+}
+
+input#experience, input#medecinId {
+    margin-left: 25px;
+}
+
+form * {
+    margin: 2.5px 0;
+}

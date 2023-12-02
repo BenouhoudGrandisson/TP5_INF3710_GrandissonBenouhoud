@@ -1,0 +1,26 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div *ngIf="showSuccessMessage" class="alert alert-success">
+                Le médecin a été supprimé avec succès!
+            </div>
+            <form class="card" [formGroup]="deleteMedecinFormGroup" (submit)="submitForm()">
+                <h4 class="card-header mb-0">
+                    Supprimer un médecin
+                </h4>
+                <div id="medecin-id-row" class="row">
+                    <div id="label-input" class="col d-flex justify-content-center">
+                        <label for="id">ID du médecin</label>
+                        <input formControlName="id" type="number" name="id" id="id" min="0" [max]="medecins.length - 1">
+                    </div>
+                </div>
+                <div class="row" id="delete-row">
+                    <div class="col d-flex justify-content-center">
+                        <button [disabled]="deleteMedecinFormGroup.invalid" type="submit" class="btn btn-danger">Supprimer</button>
+                    </div>
+                </div>
+                <app-medecin-card formControlName="medecin" id="medecin-card" [medecin]="medecin"></app-medecin-card>
+            </form>
+        </div>
+    </div>
+</div>
