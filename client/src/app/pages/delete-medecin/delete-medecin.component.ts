@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Medecin } from '../../../../../common/tables/medecin';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Constants } from 'src/app/config/constants';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-delete-medecin',
@@ -8,36 +10,50 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./delete-medecin.component.css']
 })
 export class DeleteMedecinComponent implements OnInit {
+  private readonly API_URL = Constants.API_URL;
   deleteMedecinFormGroup: FormGroup;
-  public readonly medecin: Medecin = new Medecin(0, "Mehdi", "Benouhoud", "La bite", 10, "La biterie");
-  public readonly medecins: Medecin[] =  [
-    new Medecin(1, "Mehewewdi", "Benouhoud", "La bite", 10, "La biterie"),
-    new Medecin(2, "Mehewewdi", "Benwewewouhoud", "La bite", 10, "La biterie"),
-    new Medecin(3, "Mehdi", "Benouwewewewhoud", "La bite", 10, "La biterie"),
-    new Medecin(4, "Mehdi", "Benou34567houd", "La bite", 10, "La biterie")
-  ];
+  public medecin: Medecin;
+  public medecins: Medecin[];
+  public showSuccessMessage: boolean = false;
 
   get id() { return this.deleteMedecinFormGroup.get('id'); }
   get medecinForm() { return this.deleteMedecinFormGroup.get('medecin'); }
+
+  submitForm() {
+    console.log("Delete medecin");
+    this.http.delete(this.API_URL + '/medecins/' + this.id?.value).subscribe((res) => {
+      console.log("Medecin deleted");
+    });
+    this.showSuccessMessage = true;
+  }
   
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
-    console.log(this.medecin);
     this.deleteMedecinFormGroup = this.fb.group({
-      id: ['', [
+      id: [0, [
         Validators.required,
-        Validators.minLength(1)
+        Validators.minLength(1),
+        Validators.min(0),
+        (control: any) => Validators.max(this.medecins ? this.medecins.length - 1 : 0)(control)
       ]],
       medecin: ['', [
         Validators.required
       ]]
     });
     this.deleteMedecinFormGroup.get('id')?.valueChanges.subscribe((selectedMedecinId) => {
-      const selectedMedecin = this.medecins.find(medecin => medecin.id === selectedMedecinId);
-      if (selectedMedecin) {
-        this.deleteMedecinFormGroup.get('medecin')?.setValue(selectedMedecin);
-      }
+      this.medecin = this.medecins.find(medecin => medecin.id === selectedMedecinId)!;
+      this.medecinForm?.setValue(this.medecin);
+
+      this.http.get(this.API_URL + '/medecins/' + selectedMedecinId).subscribe((res) => {
+        this.medecin = res as Medecin;
+        this.medecinForm?.setValue(this.medecin);
+      });
+    });
+
+    this.http.get(this.API_URL + '/medecins').subscribe((res) => {
+      this.medecins = res as Medecin[];
+      this.medecin = this.medecins[0];
     });
   }
 

@@ -33,6 +33,8 @@ Il est possible d'exécuter des commandes SQL en effectuant la commande suivante
 docker-compose exec database psql -U medecin_specialiste -d hopital_bd
 ```
 
+Vous devez vous assurer de configurer la base de données avant d'utiliser l'application, c'est-à-dire en y ajoutant les schémas spécifiés dans le fichier database/bdschema.sql et les données spécifiés dans le fichier database/data.sql
+
 # Utilisation en mode développement
 Fourni par les chargés du cours.
 ## Important
